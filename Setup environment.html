@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h3 id="install-common-packages">1. Install common packages</h3>
+<pre><code>sudo apt-get update
+sudo apt-get install -y curl git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev zsh vim
+</code></pre>
+<h3 id="setup-oh-my-zsh">2. Setup Oh My Zsh</h3>
+<pre><code>sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+</code></pre>
+<p><em>Note</em>: Type <code>Y</code> then press [Enter] if get the prompt.</p>
+<h3 id="install-ruby-and-rails">3. Install Ruby and Rails</h3>
+<pre><code>git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.zshrc
+echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.zshrc
+exec $SHELL
+
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' &gt;&gt; ~/.zshrc
+exec $SHELL
+
+rbenv install 2.6.3
+rbenv global 2.6.3
+
+echo "gem: --no-document" &gt;&gt; ~/.gemrc
+
+gem install bundler
+rbenv rehash
+gem install rails
+rbenv rehash
+</code></pre>
+<h3 id="install-mysql">4. Install MySQL</h3>
+<pre><code>sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+</code></pre>
+<p><em>Note</em>: If get any prompt, just press [Enter] to continue.</p>
+<h3 id="install-nodejs">5. Install NodeJS</h3>
+<pre><code>curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+</code></pre>
+<h3 id="config-git">6. Config Git</h3>
+<pre><code>git config --global color.ui true
+git config --global user.name "YOUR NAME"
+git config --global user.email "YOUR@EMAIL.com"
+ssh-keygen -t rsa -b 4096 -C "YOUR@EMAIL.com"
+</code></pre>
+<p><em>Note</em>: If get any prompt, just press [Enter] to continue.</p>
+<h3 id="config-to-connect-to-mysql-server-without-sudo-permission">7. Config to connect to MySQL Server without sudo permission</h3>
+<pre><code>sudo mysql -uroot
+
+DROP USER 'root'@'localhost';
+CREATE USER 'root'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+quit
+</code></pre>
+</div>
+</body>
+
+</html>
